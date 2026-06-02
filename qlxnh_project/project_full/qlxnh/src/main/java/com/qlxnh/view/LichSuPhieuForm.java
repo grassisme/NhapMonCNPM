@@ -35,6 +35,9 @@ public class LichSuPhieuForm extends JFrame {
     private DefaultTableModel tableModel;
     private JLabel          lblTongKet;
 
+    /** Lưu danh sách đang hiển thị để map dòng được chọn → phiếu khi xem chi tiết. */
+    private List<LichSuPhieu> currentData = new java.util.ArrayList<>();
+
     private final LichSuPhieuDAO dao = new LichSuPhieuDAO();
 
     public LichSuPhieuForm() {
@@ -197,6 +200,7 @@ public class LichSuPhieuForm extends JFrame {
     public void loadTable() {
         try {
             List<LichSuPhieu> list = dao.getAll();
+            currentData = list;
             tableModel.setRowCount(0);
             for (LichSuPhieu p : list) {
                 tableModel.addRow(new Object[]{
@@ -239,6 +243,7 @@ public class LichSuPhieuForm extends JFrame {
             };
 
             List<LichSuPhieu> list = dao.search(tu, den, loai);
+            currentData = list;
             tableModel.setRowCount(0);
             for (LichSuPhieu p : list) {
                 tableModel.addRow(new Object[]{
@@ -263,10 +268,17 @@ public class LichSuPhieuForm extends JFrame {
         }
     }
 
-    // ── XEM CHI TIẾT (Bước 3 — tạm để trống, điền sau) ──
+    // ── XEM CHI TIẾT khi double-click một dòng ───────────
     private void xemChiTiet() {
-        int row = tbl.getSelectedRow();
-        // TODO: Bước 3 — mở ChiTietPhieuDialog
+        int viewRow = tbl.getSelectedRow();
+        if (viewRow < 0) return;
+        // Chuyển index theo sorter để lấy đúng phần tử trong currentData
+        int modelRow = tbl.convertRowIndexToModel(viewRow);
+        if (modelRow < 0 || modelRow >= currentData.size()) return;
+
+        LichSuPhieu phieu = currentData.get(modelRow);
+        ChiTietPhieuDialog dlg = new ChiTietPhieuDialog(this, phieu);
+        dlg.setVisible(true);
     }
 
     private JLabel boldLabel(String text) {

@@ -95,7 +95,7 @@ public class DanhMucController {
 
 
     // ================= KHU VỰC ĐIỀU KHIỂN ĐẠI LÝ CON =================
-    public List<DaiLyCon> timKiemDaiLy(String tuKhoa) throws Exception {
+    public List<DaiLyCon> timKiemDaiLy(String tuKhoa) throws SQLException {
         return daiLyConDAO.search(tuKhoa);
     }
 

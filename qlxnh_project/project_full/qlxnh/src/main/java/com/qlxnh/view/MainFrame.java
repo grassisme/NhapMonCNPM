@@ -155,6 +155,23 @@ public class MainFrame extends JFrame {
             pnlSidebar.add(btnPhieuXuat);
         }
 
+        // ── Quản lý danh mục (Tất cả vai trò đều xem được; quyền sửa/xóa
+        //    được kiểm soát bên trong DanhMucView theo vai trò) ──
+        JButton btnDanhMuc = createMenuButton("📁  Quản lý danh mục");
+        btnDanhMuc.addActionListener(e -> {
+            setActiveButton(btnDanhMuc);
+            moDanhMuc();
+        });
+        pnlSidebar.add(btnDanhMuc);
+
+        // ── Tra cứu lịch sử phiếu (Tất cả vai trò đều xem được) ──
+        JButton btnLichSu = createMenuButton("🕓  Tra cứu lịch sử");
+        btnLichSu.addActionListener(e -> {
+            setActiveButton(btnLichSu);
+            moLichSuPhieu();
+        });
+        pnlSidebar.add(btnLichSu);
+
         // ── Báo cáo tồn kho (Tất cả vai trò đều xem được) ──
         JButton btnBaoCao = createMenuButton("📊  Báo cáo tồn kho");
         btnBaoCao.addActionListener(e -> {
@@ -372,6 +389,16 @@ public class MainFrame extends JFrame {
 
     private void moBaoCaoTonKho() {
         BaoCaoTonKhoForm form = new BaoCaoTonKhoForm();
+        form.setVisible(true);
+    }
+
+    private void moDanhMuc() {
+        DanhMucView form = new DanhMucView();
+        form.setVisible(true);
+    }
+
+    private void moLichSuPhieu() {
+        LichSuPhieuForm form = new LichSuPhieuForm();
         form.setVisible(true);
     }
 

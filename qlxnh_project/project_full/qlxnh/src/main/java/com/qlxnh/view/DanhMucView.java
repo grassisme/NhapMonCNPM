@@ -207,7 +207,6 @@ public class DanhMucView extends JFrame {
     private void loadDataHangHoa(String tuKhoa) {
         modelHH.setRowCount(0);
         try {
-            List<String[]> data;
             List<HangHoa> list = controller.timKiemHangHoa(tuKhoa);
             if (list.isEmpty() && !tuKhoa.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy mặt hàng phù hợp", "Thông báo tra cứu", JOptionPane.INFORMATION_MESSAGE); // [cite: 30, 75]
