@@ -74,7 +74,13 @@ public class PhieuXuatFrm extends JFrame {
 
     private void initComponents() {
         setTitle("Lập phiếu xuất");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                xacNhanDong();
+            }
+        });
         setSize(840, 500);
         setLayout(new BorderLayout(8, 8));
 
@@ -137,7 +143,7 @@ public class PhieuXuatFrm extends JFrame {
 
         JPanel pnlRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
         btnHuy = new JButton("Hủy");
-        btnHuy.addActionListener(e -> dispose());
+        btnHuy.addActionListener(e -> xacNhanDong());
         btnLuu = new JButton("Lưu phiếu");
         btnLuu.addActionListener(e -> luuPhieu());
         pnlRight.add(btnHuy);
@@ -208,6 +214,21 @@ public class PhieuXuatFrm extends JFrame {
         }
         modelChiTiet.removeRow(row);
         capNhatTongTien();
+    }
+
+    private void xacNhanDong() {
+        if (modelChiTiet.getRowCount() == 0) {
+            dispose();
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(this,
+                "Phiếu chưa được lưu. Bạn có chắc muốn bỏ qua?",
+                "Xác nhận hủy",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        if (choice == JOptionPane.YES_OPTION) {
+            dispose();
+        }
     }
 
     private void capNhatTongTien() {

@@ -52,6 +52,7 @@ public class PhieuNhapForm extends JFrame {
     private DefaultTableModel modelChiTiet;
 
     private JButton      btnThemDong;
+    private JButton btnXoaDong;
     private JLabel       lblTongTienLabel;
     private JLabel       lblTongTien;
     private JButton      btnHuy;
@@ -83,7 +84,13 @@ public class PhieuNhapForm extends JFrame {
      *  vùng "Generated Code" do NetBeans sinh. */
     private void initComponents() {
         setTitle("Lập phiếu nhập");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                xacNhanDong();
+            }
+        });
         setSize(820, 480);
         setLayout(new BorderLayout(8, 8));
 
@@ -145,11 +152,14 @@ public class PhieuNhapForm extends JFrame {
         JPanel pnlFooter = new JPanel(new BorderLayout());
         pnlFooter.setBorder(BorderFactory.createEmptyBorder(0, 12, 12, 12));
 
-        // Trái: nút Thêm dòng
+        // Trái: nút Thêm dòng & nút Xóa Dòng
         JPanel pnlFooterLeft = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         btnThemDong = new JButton("+ Thêm dòng");
         btnThemDong.addActionListener(e -> themDongMoi());
         pnlFooterLeft.add(btnThemDong);
+        btnXoaDong = new JButton("− Xóa dòng");
+        btnXoaDong.addActionListener(e -> xoaDongDangChon());
+        pnlFooterLeft.add(btnXoaDong);
 
         // Giữa: tổng tiền
         JPanel pnlFooterCenter = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
@@ -162,7 +172,7 @@ public class PhieuNhapForm extends JFrame {
         // Phải: Hủy / Lưu
         JPanel pnlFooterRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
         btnHuy = new JButton("Hủy");
-        btnHuy.addActionListener(e -> dispose());
+        btnHuy.addActionListener(e -> xacNhanDong());
         btnLuu = new JButton("Lưu phiếu");
         btnLuu.addActionListener(e -> luuPhieu());
         pnlFooterRight.add(btnHuy);
@@ -172,6 +182,35 @@ public class PhieuNhapForm extends JFrame {
         pnlFooter.add(pnlFooterCenter, BorderLayout.CENTER);
         pnlFooter.add(pnlFooterRight,  BorderLayout.EAST);
         add(pnlFooter, BorderLayout.SOUTH);
+    }
+    /** Xử lý chức năng xóa dòng */
+    private void xoaDongDangChon() {
+        int row = tblChiTiet.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Hãy chọn một dòng để xóa.",
+                    "Chưa chọn", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        modelChiTiet.removeRow(row);
+        capNhatTongTien();
+    }
+
+    /** Xử lý chức năng xác nhận đóng */
+    private void xacNhanDong() {
+        // Nếu chưa nhập dòng nào thì đóng thẳng, không cần hỏi
+        if (modelChiTiet.getRowCount() == 0) {
+            dispose();
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(this,
+                "Phiếu chưa được lưu. Bạn có chắc muốn bỏ qua?",
+                "Xác nhận hủy",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        if (choice == JOptionPane.YES_OPTION) {
+            dispose();
+        }
     }
 
     /** Tải dữ liệu nguồn (hàng hóa, NCC) + gắn editor combobox cho 2 cột. */
