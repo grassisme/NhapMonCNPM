@@ -93,7 +93,7 @@ public class DaiLyConDAO extends DAO {
         }
     }
 
-    public void update(DaiLyCon d) throws SQLException {
+    public boolean update(DaiLyCon d) throws SQLException {
         String sql = "UPDATE tblDaiLyCon SET maDL = ?, tenDL = ?, diaChi = ?, soDT = ? "
                    + "WHERE id = ?";
         try (Connection conn = getConnection();
@@ -107,6 +107,7 @@ public class DaiLyConDAO extends DAO {
                 throw new SQLException("Khong tim thay dai ly id=" + d.getId());
             }
         }
+        return false;
     }
 
     /** Xóa đại lý. Thất bại nếu đang được tham chiếu trong tblCTPhieuXuat. */

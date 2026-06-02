@@ -93,7 +93,7 @@ public class NhaCungCapDAO extends DAO {
         }
     }
 
-    public void update(NhaCungCap n) throws SQLException {
+    public boolean update(NhaCungCap n) throws SQLException {
         String sql = "UPDATE tblNhaCungCap SET maNCC = ?, tenNCC = ?, diaChi = ?, soDT = ? "
                    + "WHERE id = ?";
         try (Connection conn = getConnection();
@@ -107,6 +107,7 @@ public class NhaCungCapDAO extends DAO {
                 throw new SQLException("Khong tim thay NCC id=" + n.getId());
             }
         }
+        return false;
     }
 
     /** Xóa NCC. Thất bại nếu đang được tham chiếu trong tblCTPhieuNhap. */

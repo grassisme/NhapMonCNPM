@@ -46,7 +46,9 @@ public class HangHoaDAO extends DAO {
         }
     }
 
-    /** Tìm theo mã hàng (UNIQUE), trả null nếu không có. */
+    /**
+     * Tìm theo mã hàng (UNIQUE), trả null nếu không có.
+     */
     public HangHoa getByMa(String maHang) throws SQLException {
         String sql = "SELECT id, maHang, tenHang, moTa, soLuongTon "
                    + "FROM tblHangHoa WHERE maHang = ?";
@@ -82,6 +84,7 @@ public class HangHoaDAO extends DAO {
     /**
      * Thêm hàng hóa mới. Mã hàng phải UNIQUE, trùng sẽ ném SQLException
      * (do constraint UNIQUE ở tblHangHoa).
+     *
      * @return id mới sinh
      */
     public int insert(HangHoa hh) throws SQLException {
@@ -106,10 +109,14 @@ public class HangHoaDAO extends DAO {
         }
     }
 
-    /** Cập nhật thông tin hàng hóa. Không cho sửa soLuongTon ở đây — soLuongTon
-     *  chỉ đổi qua phiếu nhập/xuất (để đảm bảo toàn vẹn).
-     *  Nếu cần điều chỉnh tồn thủ công (kiểm kê), gọi capNhatTonKho() riêng. */
-    public void update(HangHoa hh) throws SQLException {
+    /**
+     * Cập nhật thông tin hàng hóa. Không cho sửa soLuongTon ở đây — soLuongTon
+     * chỉ đổi qua phiếu nhập/xuất (để đảm bảo toàn vẹn).
+     * Nếu cần điều chỉnh tồn thủ công (kiểm kê), gọi capNhatTonKho() riêng.
+     *
+     * @return
+     */
+    public boolean update(HangHoa hh) throws SQLException {
         String sql = "UPDATE tblHangHoa SET maHang = ?, tenHang = ?, moTa = ? WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -121,6 +128,7 @@ public class HangHoaDAO extends DAO {
                 throw new SQLException("Khong tim thay hang hoa id=" + hh.getId());
             }
         }
+        return false;
     }
 
     /**
