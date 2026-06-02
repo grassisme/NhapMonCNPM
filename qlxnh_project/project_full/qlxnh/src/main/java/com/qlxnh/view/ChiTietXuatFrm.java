@@ -46,7 +46,7 @@ public class ChiTietXuatFrm extends JDialog {
     private JButton             btnHuy;
 
     private static final NumberFormat MONEY_FORMAT =
-            NumberFormat.getInstance(Locale.of("vi", "VN"));
+            NumberFormat.getInstance(new Locale("vi", "VN"));
 
     public ChiTietXuatFrm(Window owner,
                           PhieuXuatController controller,

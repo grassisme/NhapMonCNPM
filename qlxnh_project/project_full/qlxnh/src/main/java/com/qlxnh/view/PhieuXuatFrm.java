@@ -62,7 +62,7 @@ public class PhieuXuatFrm extends JFrame {
     private static final int COL_THANHTIEN = 4;
 
     private static final NumberFormat MONEY_FORMAT =
-            NumberFormat.getInstance(Locale.of("vi", "VN"));
+            NumberFormat.getInstance(new Locale("vi", "VN"));
 
     public PhieuXuatFrm(int currentUserId, String currentUserName) {
         this.currentUserId = currentUserId;

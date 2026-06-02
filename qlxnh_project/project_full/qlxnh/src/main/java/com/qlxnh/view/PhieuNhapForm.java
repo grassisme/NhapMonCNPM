@@ -70,7 +70,7 @@ public class PhieuNhapForm extends JFrame {
     private static final int COL_THANHTIEN  = 4;
 
     // Formatter định dạng tiền VND có dấu chấm phân nhóm
-    private static final NumberFormat MONEY_FORMAT = NumberFormat.getInstance(Locale.of("vi", "VN"));
+    private static final NumberFormat MONEY_FORMAT = NumberFormat.getInstance(new Locale("vi", "VN"));
 
     public PhieuNhapForm(int currentUserId, String currentUserName) {
         this.currentUserId = currentUserId;
