@@ -81,9 +81,7 @@ public class BaoCaoTonKhoForm extends JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
         setContentPane(mainPanel);
 
-        // =================================================================
         // PHÍA BẮC (NORTH): Panel chế độ xem và Banner thông tin
-        // =================================================================
         JPanel pnlNorth = new JPanel();
         pnlNorth.setLayout(new BoxLayout(pnlNorth, BoxLayout.Y_AXIS));
         pnlNorth.setBackground(BG_WHITE);
@@ -190,9 +188,7 @@ public class BaoCaoTonKhoForm extends JFrame {
         pnlNorth.add(pnlInfoBanner);
         mainPanel.add(pnlNorth, BorderLayout.NORTH);
 
-        // =================================================================
         // PHẦN TRUNG TÂM (CENTER): Tìm kiếm + Sắp xếp + Bảng dữ liệu
-        // =================================================================
         JPanel pnlCenter = new JPanel(new BorderLayout(0, 8));
         pnlCenter.setBackground(BG_WHITE);
 
@@ -250,9 +246,7 @@ public class BaoCaoTonKhoForm extends JFrame {
 
         mainPanel.add(pnlCenter, BorderLayout.CENTER);
 
-        // =================================================================
         // PHẦN NAM (SOUTH): Chú thích & Trạng thái footer
-        // =================================================================
         JPanel pnlSouth = new JPanel(new BorderLayout());
         pnlSouth.setBackground(BG_WHITE);
         pnlSouth.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER_C));
