@@ -19,12 +19,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- * Giao diện Báo cáo tồn kho tại một thời điểm (UC-06).
- *
- * Cho phép xem tồn kho hiện tại hoặc tồn kho tại một ngày trong quá khứ,
- * lọc tìm kiếm nhanh theo tên/mã, sắp xếp, và xuất báo cáo ra Excel (CSV).
- */
 public class BaoCaoTonKhoForm extends JFrame {
 
     private final BaoCaoController controller = new BaoCaoController();
